@@ -15,5 +15,6 @@ script:      # 执行的脚步，但是go默认会执行下面的这些命令的
   - cd $GOPATH/src
   - mv $GOPATH/src/github.com/seymourtang/jenkins-test $GOPATH/src/
   - echo $PWD
+  - ls -ll
   - go test -v ./...
   - go build -v -i -mod=vendor -o  main ./cmd/main.go
