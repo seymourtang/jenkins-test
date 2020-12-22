@@ -1,0 +1,21 @@
+metadata:
+  labels:
+    label-name: adc-jenkins-test
+spec:
+  # this secret is created in k8s by Admin
+  imagePullSecrets:
+    - regcred
+  containers:
+    - name: golang
+      image: hub.agoralab.co/adc/adc-golang:latest
+      imagePullPolicy: IfNotPresent
+      command:
+        - cat
+      tty: true
+      resources:
+        limits:
+          cpu: 4.8
+          memory: 9Gi
+        requests:
+          cpu: 4
+          memory: 8Gi
