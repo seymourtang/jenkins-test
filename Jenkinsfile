@@ -8,14 +8,50 @@ pipeline {
     }
 
     stages {
-        stage('Build Golang') {
+        stage('lint') {
             steps {
-                echo 'build golang...'
+                echo 'make lint...'
                 container('golang') {
                     sh """
-                    GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -i -v -o ./bin/jenkins-test 	-ldflags "-s -w" ./cmd/main.go
                     ls -la
                     pwd
+                    make lint
+                    """
+                }
+            }
+        }
+        stage('test') {
+            steps {
+                echo 'make test...'
+                container('golang') {
+                    sh """
+                    ls -la
+                    pwd
+                    make test
+                    """
+                }
+            }
+        }
+        stage('build') {
+            steps {
+                echo 'make build...'
+                container('golang') {
+                    sh """
+                    ls -la
+                    pwd
+                    make build
+                    """
+                }
+            }
+        }
+        stage('image') {
+            steps {
+                echo 'make image...'
+                container('golang') {
+                    sh """
+                    ls -la
+                    pwd
+                    make image
                     """
                 }
             }
